@@ -10,31 +10,24 @@ package examples.basic {
 
 import com.genome2d.assets.GAsset;
 import com.genome2d.assets.GAssetManager;
-import com.genome2d.components.renderable.text.GText;
 import com.genome2d.context.GContextConfig;
 import com.genome2d.Genome2D;
-import com.genome2d.node.GNode;
-import com.genome2d.text.GFontManager;
-import com.genome2d.textures.GTextureManager;
-import com.genome2d.utils.GHAlignType;
-import com.genome2d.utils.GVAlignType;
 import flash.display.Sprite;
 import flash.events.Event;
 
-
 [SWF(width="800", height="600", backgroundColor="#000000", frameRate="60")]
-public class BasicExample5TextureText extends Sprite
+public class BasicExample2Assets extends Sprite
 {
     /**
         Genome2D singleton instance
      **/
     private var genome:Genome2D;
-
-    public function BasicExample5TextureText() {
+	
+	public function BasicExample2Assets() {
         if (stage != null) addedToStage_handler(null);
         else addEventListener(Event.ADDED_TO_STAGE, addedToStage_handler);
     }
-	
+
     private function addedToStage_handler(event:Event):void {
         removeEventListener(Event.ADDED_TO_STAGE, addedToStage_handler);
 
@@ -69,8 +62,9 @@ public class BasicExample5TextureText extends Sprite
 	 * 	Asset loading
 	 */
 	private function loadAssets():void {
-		GAssetManager.addFromUrl("font.png");
-        GAssetManager.addFromUrl("font.fnt");
+		GAssetManager.addFromUrl("atlas.png");
+        GAssetManager.addFromUrl("atlas.xml");
+		GAssetManager.addFromUrl("texture.png");
 		GAssetManager.onQueueFailed.add(assetsFailed_handler);
         GAssetManager.onQueueLoaded.addOnce(assetsLoaded_handler);
         GAssetManager.loadQueue();
@@ -87,36 +81,7 @@ public class BasicExample5TextureText extends Sprite
 	 * 	Asset loading completed
 	 */
 	private function assetsLoaded_handler():void {
-		initExample();
+		// Loading of assets was succesfull so we can do our stuff
 	}
-
-    /**
-        Initialize Example code
-     **/
-    private function initExample():void {
-		GTextureManager.createTexture("font.png", GAssetManager.getImageAssetById("font.png"));
-		
-		GFontManager.createTextureFont("font", GTextureManager.getTexture("font.png"), GAssetManager.getXmlAssetById("font.fnt").xml);
-		
-		createText(250, 150, "Hello world.", GVAlignType.MIDDLE, GHAlignType.CENTER);
-    }
-	
-    private function createText(p_x:Number, p_y:Number, p_text:String, p_vAlign:int, p_hAlign:int, p_tracking:int = 0, p_lineSpace:int = 0):GText {
-        var text:GText = GNode.createWithComponent(GText) as GText;
-		
-        text.renderer.textureFont = GFontManager.getFont("font");
-        text.width = 300;
-        text.height = 300;
-        text.text = p_text;
-        text.tracking = p_tracking;
-        text.lineSpace = p_lineSpace;
-        text.vAlign = p_vAlign;
-        text.hAlign = p_hAlign;
-        text.node.setPosition(p_x, p_y);
-		
-        genome.root.addChild(text.node);
-
-        return text;
-    }
 }
 }

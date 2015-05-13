@@ -1,7 +1,7 @@
 package
 {
 	import com.genome2d.Genome2D;
-	import examples.basic.BasicExample2Sprite;
+	import examples.basic.*;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -14,7 +14,12 @@ package
 		}
 		
 		private function init(e:Event = null):void {
-			addChild(new BasicExample2Sprite() as Sprite);
+			//addChild(new BasicExample1Initialization() as Sprite);
+			//addChild(new BasicExample2Assets() as Sprite);
+			//addChild(new BasicExample3Sprite() as Sprite);
+			//addChild(new BasicExample4Mouse() as Sprite);
+			//addChild(new BasicExample5TextureText() as Sprite);
+			addChild(new BasicExample6SimpleParticles() as Sprite);
 		}
 		
 	}
