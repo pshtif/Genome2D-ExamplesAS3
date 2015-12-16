@@ -28,7 +28,7 @@ public class BasicExample1Initialization extends Sprite
     }
 
     private function addedToStage_handler(event:Event):void {
-        removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+        removeEventListener(Event.ADDED_TO_STAGE, addedToStage_handler);
 
         initGenome();
     }
@@ -50,7 +50,7 @@ public class BasicExample1Initialization extends Sprite
 	/**
         Genome2D failed handler
      **/
-    private function genomeFailed_handler(p_msg:String):Void {
+    private function genomeFailed_handler(p_msg:String):void {
         // Here we can check why Genome2D initialization failed
     }
 	
