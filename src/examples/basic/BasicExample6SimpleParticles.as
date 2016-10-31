@@ -9,9 +9,11 @@
 package examples.basic {
 import com.genome2d.assets.GAsset;
 import com.genome2d.assets.GAssetManager;
-import com.genome2d.components.renderable.particles.GSimpleParticleSystem;
 import com.genome2d.context.GContextConfig;
 import com.genome2d.Genome2D;
+import com.genome2d.context.GDepthFunc;
+import com.genome2d.deprecated.components.renderable.particles.GSimpleParticleSystemD;
+import com.genome2d.g3d.G3DScene;
 import com.genome2d.node.GNode;
 import com.genome2d.textures.GTextureManager;
 import flash.display.Sprite;
@@ -90,10 +92,10 @@ public class BasicExample6SimpleParticles extends Sprite
         Initialize Example code
      **/
     private function initExample():void {
-        GAssetManager.generateTextures();
+        GAssetManager.generate();
 
-		// Create a node with simple particle system component
-        var particleSystem:GSimpleParticleSystem = GNode.createWithComponent(GSimpleParticleSystem) as GSimpleParticleSystem;
+        // Create a node with simple particle system component
+        var particleSystem:GSimpleParticleSystemD = GNode.createWithComponent(GSimpleParticleSystemD) as GSimpleParticleSystemD;
         particleSystem.texture = GTextureManager.getTexture("atlas_particle");
         particleSystem.emission = 128;
         particleSystem.emit = true;
@@ -108,6 +110,13 @@ public class BasicExample6SimpleParticles extends Sprite
         particleSystem.node.setPosition(400,300);
 
         Genome2D.getInstance().root.addChild(particleSystem.node);
+
+        genome.onPreRender.add(preRender_handler);
     }
+
+    private function preRender_handler():void {
+        genome.getContext().setDepthTest(true, GDepthFunc.NEVER);
+    }
+
 }
 }
